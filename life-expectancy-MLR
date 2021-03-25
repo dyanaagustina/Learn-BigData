@@ -1,0 +1,41 @@
+import pandas as pds
+import numpy as npy
+import seaborn as sbn
+import matplotlib.pyplot as plb
+
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+#membaca file csv life-expectancy.csv
+data_life = pds.read_csv('life-expectancy.csv')
+
+#menampilkan judul kolom dan 5 data teratas
+data_life.head()
+
+#menampilkan struktur data yang terdapat di DataFrame data_life
+data_life.info()
+
+#melakukan pengecekan jumlah data yang kosong (null value)
+data_life.isnull().sum()
+
+#mengisi data yang bernilai 'null' dengan data mean atau median dari kolom tersebut
+data_life['Life expectancy '].fillna(data_life['Life expectancy '].mean(), inplace=True)
+data_life['Adult Mortality'].fillna(data_life['Adult Mortality'].mean(), inplace=True)
+data_life['Alcohol'].fillna(data_life['Alcohol'].median(), inplace=True)
+data_life['Hepatitis B'].fillna(data_life['Hepatitis B'].mean(), inplace=True)
+data_life[' BMI '].fillna(data_life[' BMI '].mean(), inplace=True)
+data_life['Polio'].fillna(data_life['Polio'].median(), inplace=True)
+data_life['Total expenditure'].fillna(data_life['Total expenditure'].mean(), inplace=True)
+data_life['Diphtheria '].fillna(data_life['Diphtheria '].mean(), inplace=True)
+data_life['GDP'].fillna(data_life['GDP'].median(), inplace=True)
+data_life['Population'].fillna(data_life['Population'].mean(), inplace=True)
+data_life[' thinness  1-19 years'].fillna(data_life[' thinness  1-19 years'].mean(), inplace=True)
+data_life[' thinness 5-9 years'].fillna(data_life[' thinness 5-9 years'].median(), inplace=True)
+data_life['Income composition of resources'].fillna(data_life['Income composition of resources'].mean(), inplace=True)
+data_life['Schooling'].fillna(data_life['Schooling'].mean(), inplace=True)
+
+#melakukan pengecekan kembali jumlah data yang masih kosong (null value)
+data_life.isnull().sum()
+
+
+
