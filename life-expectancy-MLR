@@ -46,7 +46,7 @@ sbn.pairplot(data=data_life, x_vars=['Total expenditure','Diphtheria ',' HIV/AID
 x = data_life.drop(columns='Life expectancy ')
 y = data_life['Life expectancy ']
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.5, random_state=0)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.5, random_state=1)
 
 lin_reg = LinearRegression()
 
