@@ -56,3 +56,22 @@ kmeans_df.head(10)
 
 kmeans_df.to_csv('kmeans_result.csv',index=False)
 
+sbn.scatterplot(data_kmeans['child_mort'],data_kmeans['gdpp'],hue='KMeans Cluster',data=data_kmeans) 
+plb.title("Child Mortality vs GDPP", fontsize=15)
+plb.xlabel("Child Mortality", fontsize=12)
+plb.ylabel("GDPP", fontsize=12)
+plb.show()
+
+sbn.scatterplot(data_kmeans['inflation'],data_kmeans['gdpp'],hue='KMeans Cluster',data=data_kmeans) 
+plb.title("Inflation vs GDPP", fontsize=15)
+plb.xlabel("Inflation", fontsize=12)
+plb.ylabel("GDPP", fontsize=12)
+plb.show()
+
+under_developing = data_kmeans[data_kmeans['kmeans_cluster'] == 0]['country']
+developing = data_kmeans[data_kmeans['kmeans_cluster'] == 1]['country']
+developed = data_kmeans[data_kmeans['kmeans_cluster'] == 2]['country']
+
+print("Under-Developing Countries",len(under_developing))
+print("Developing Countries",len(developing))
+print("Developed Countries",len(developed))
