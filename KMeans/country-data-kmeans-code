@@ -56,22 +56,39 @@ kmeans_df.head(10)
 
 kmeans_df.to_csv('kmeans_result.csv',index=False)
 
-sbn.scatterplot(data_kmeans['child_mort'],data_kmeans['gdpp'],hue='KMeans Cluster',data=data_kmeans) 
+sbn.scatterplot(kmeans_df['child_mort'],kmeans_df['gdpp'],hue='KMeans Cluster',data=kmeans_df) 
 plb.title("Child Mortality vs GDPP", fontsize=15)
 plb.xlabel("Child Mortality", fontsize=12)
 plb.ylabel("GDPP", fontsize=12)
 plb.show()
 
-sbn.scatterplot(data_kmeans['inflation'],data_kmeans['gdpp'],hue='KMeans Cluster',data=data_kmeans) 
+sbn.scatterplot(kmeans_df['inflation'],kmeans_df['gdpp'],hue='KMeans Cluster',data=kmeans_df) 
 plb.title("Inflation vs GDPP", fontsize=15)
 plb.xlabel("Inflation", fontsize=12)
 plb.ylabel("GDPP", fontsize=12)
 plb.show()
 
-under_developing = data_kmeans[data_kmeans['kmeans_cluster'] == 0]['country']
-developing = data_kmeans[data_kmeans['kmeans_cluster'] == 1]['country']
-developed = data_kmeans[data_kmeans['kmeans_cluster'] == 2]['country']
+negara_miskin = kmeans_df[kmeans_df['kmeans_cluster'] == 2]['country']
+negara_berkembang = kmeans_df[kmeans_df['kmeans_cluster'] == 1]['country']
+negara_maju = kmeans_df[kmeans_df['kmeans_cluster'] == 0]['country']
 
-print("Under-Developing Countries",len(under_developing))
-print("Developing Countries",len(developing))
-print("Developed Countries",len(developed))
+print('Jumlah Negara Miskin', len(negara_miskin), 'Negara')
+print('Jumlah Negara Berkembang', len(negara_berkembang), 'Negara')
+print('Jumlah Negara Maju', len(negara_maju), 'Negara')
+
+list(negara_maju)
+list(negara_berkembang)
+list(negara_miskin)
+
+negara = 'Zambia'
+
+nilai_cluster = kmeans_df.loc[kmeans_df['country'] == negara]['kmeans_cluster']
+
+nilai_cluster = nilai_cluster[nilai_cluster.index[0]]
+
+if nilai_cluster == 0 :
+    print(negara, 'adalah Negara Maju dengan nilai klaster', nilai_cluster)
+elif(nilai_cluster == 1):
+    print(negara, 'adalah Negara Berkembang dengan nilai klaster', nilai_cluster)
+elif (nilai_cluster == 2): 
+    print(negara, 'adalah Negara Miskin dengan nilai klaster', nilai_cluster)
