@@ -1,0 +1,58 @@
+import pandas as pds
+import seaborn as sbn
+import matplotlib.pyplot as plb
+import numpy as np
+
+from sklearn import metrics
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
+
+data_country = pds.read_csv('country-data.csv')
+data_country.head()
+
+data_country.shape
+data_country.info()
+data_country.isnull().sum()
+data_country.describe()
+
+data_ = data_country.drop(columns=['country'])
+data_.head()
+
+data_.corr().style.background_gradient().set_precision(2)
+
+sbn.pairplot(data_country)
+
+data_scaled = pds.DataFrame(StandardScaler().fit_transform(data_), columns = data_.columns)
+data_scaled.head()
+
+a = []
+k = range(1,10)
+
+for i in k :
+    k_value = KMeans(n_clusters = i)
+    k_value.fit(data_)
+    a.append(k_value.inertia_)
+
+plb.plot(k, a, marker = 'o')
+plb.title('Elbow Method', fontsize = 15)
+plb.xlabel('Number of clusters', fontsize = 15)
+plb.ylabel('Sum of Squared distance', fontsize = 15)
+plb.show()
+
+kmeans = KMeans(n_clusters=3, random_state=80)
+kmeans.fit(data_scaled)
+
+pds.Series(kmeans.labels_).value_counts()
+
+metrics.silhouette_score(data_scaled, kmeans.labels_)
+
+cluster_labels = kmeans.fit_predict(scaled_df)
+
+preds = kmeans.labels_
+kmeans_df = pd.DataFrame(df)
+kmeans_df['KMeans_Clusters'] = preds
+kmeans_df.head(10)
+
+kmeans_df.to_csv('kmeans_result.csv',index=False)
+
